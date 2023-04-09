@@ -5,7 +5,10 @@ const tryCatchDemo = (state: "fail" | "succeed") => {
     if (state === "fail") {
       throw new Error("Failure!");
     }
-  } catch (e) {
+  } catch (e: unknown) {
+    if (!(e instanceof Error)) {
+      throw new Error("Expected an error");
+    }
     return e.message;
   }
 };
